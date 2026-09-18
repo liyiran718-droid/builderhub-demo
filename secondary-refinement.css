@@ -1,0 +1,813 @@
+/* Secondary pages retain the School palette and reading rhythm.
+   !important is limited to properties previously locked by index.html. */
+.site-shell:not(.route-school) {
+  --secondary-ink: #65635c;
+  --secondary-action: #945137;
+}
+.site-shell:not(.route-school) main.page {
+  max-width: 1504px;
+  padding: 24px clamp(20px, 3.2vw, 48px) 48px;
+}
+.site-shell:not(.route-school) main.page h1,
+.site-shell.route-points .page-title h1 {
+  font-size: clamp(28px, 2.5vw, 34px) !important;
+  line-height: 1.45;
+  font-weight: 400;
+  letter-spacing: -.02em;
+  text-wrap: pretty;
+}
+.site-shell:not(.route-school) main.page h2 {
+  font-size: 23px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+.site-shell:not(.route-school) main.page > .back {
+  min-height: 36px;
+  margin-bottom: 12px !important;
+  color: var(--secondary-ink) !important;
+}
+.site-shell:not(.route-school) main.page .muted,
+.site-shell:not(.route-school) main.page .lead {
+  color: var(--secondary-ink);
+}
+.site-shell:not(.route-school) main.page .lead {
+  font-size: 15px;
+  line-height: 1.8;
+}
+.site-shell:not(.route-school) main.page :is(button, a, input, textarea, select, summary):focus-visible,
+.asset-dialog :is(button, a, summary):focus-visible {
+  outline: 2px solid #767970;
+  outline-offset: 3px;
+}
+.site-shell:not(.route-school) main.page ::selection,
+.asset-dialog ::selection {
+  background: #e8d4b9;
+  color: var(--ink);
+}
+
+/* Course: content determines height; the page owns vertical scrolling. */
+.site-shell.route-course main.detail.page {
+  padding: 22px clamp(20px, 3.2vw, 48px) 40px !important;
+}
+.site-shell.route-course .detail-topline {
+  flex-wrap: wrap !important;
+  gap: 4px 0 !important;
+  white-space: normal !important;
+  line-height: 1.6 !important;
+  margin-bottom: 14px !important;
+}
+.site-shell.route-course .detail-topline .back {
+  min-height: 32px;
+  color: var(--secondary-ink) !important;
+}
+.site-shell.route-course .topline-merged {
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--secondary-ink);
+}
+.site-shell.route-course .topline-merged .tm-author-name {
+  color: #4c4b46;
+  font-weight: 500;
+  font-size: 13px;
+}
+.site-shell.route-course .topline-merged .tm-meta {
+  color: var(--secondary-ink);
+}
+.site-shell.route-course .detail-heading {
+  display: block !important;
+  margin-bottom: 20px !important;
+}
+.site-shell.route-course .detail-heading > div:first-child {
+  min-width: 0 !important;
+  overflow: visible !important;
+}
+.site-shell.route-course .detail-heading h1 {
+  max-width: 40em;
+  line-height: 1.45 !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  overflow-wrap: anywhere;
+}
+.site-shell.route-course .detail-actions {
+  margin-top: 14px !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+}
+.site-shell.route-course .detail-actions :is(.primary, .secondary) {
+  min-height: 42px !important;
+  padding: 10px 15px !important;
+  font-size: 13px !important;
+  width: auto;
+}
+.site-shell.route-course .course-studio {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  align-items: stretch !important;
+  border-radius: 14px !important;
+  box-shadow: none;
+}
+.site-shell.route-course .video-column {
+  display: flex !important;
+  flex-direction: column;
+  height: auto !important;
+  align-self: start;
+  background: #f8f6f0;
+}
+.site-shell.route-course .video-column .video {
+  aspect-ratio: 16 / 9 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  padding: 28px 28px 58px;
+  flex: none;
+}
+.site-shell.route-course .video-column .video h2 {
+  font-size: clamp(21px, 2vw, 28px) !important;
+  line-height: 1.5;
+  margin: 12px auto 18px;
+  text-wrap: pretty;
+}
+.site-shell.route-course .video-kicker {
+  font-size: 12px;
+  color: var(--secondary-ink);
+}
+.site-shell.route-course .video-bottom {
+  gap: 12px;
+  flex-wrap: wrap;
+  color: var(--secondary-ink);
+  line-height: 1.5;
+}
+.site-shell.route-course .chapter-strip {
+  grid-template-columns: 1fr !important;
+  overflow: visible;
+  padding: 8px 12px;
+}
+.site-shell.route-course .chapter-strip button {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 10px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 12px !important;
+  color: var(--secondary-ink);
+}
+.site-shell.route-course .chapter-strip button.selected {
+  background: #eee8dc;
+  color: var(--ink);
+  box-shadow: none;
+}
+.site-shell.route-course .chapter-strip small {
+  margin: 0 !important;
+  font-variant-numeric: tabular-nums;
+  color: var(--secondary-ink);
+}
+.site-shell.route-course .chapter-strip span {
+  display: block;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  -webkit-line-clamp: unset;
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+}
+.site-shell.route-course .studio-reading {
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  padding: 24px 28px !important;
+}
+.site-shell.route-course .studio-reading .reading-head {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-bottom: 12px;
+}
+.site-shell.route-course .reading-head .eyebrow,
+.site-shell.route-course .reading-head .flash-link {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--secondary-ink);
+}
+.site-shell.route-course .reading-head .flash-link {
+  min-height: 32px;
+  color: var(--secondary-action);
+}
+.site-shell.route-course .reading-head .flash-unavailable {
+  color: var(--secondary-ink);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.site-shell.route-course .reading-outline {
+  margin: 0 0 20px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.site-shell.route-course .reading-outline > summary {
+  padding: 12px 0;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #4c4b46;
+}
+.site-shell.route-course .reading-outline > summary::marker,
+.asset-dialog .asset-preview > summary::marker {
+  color: #767367;
+  font-size: 10px;
+}
+.site-shell.route-course .studio-reading .section-tabs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3px;
+  overflow: visible;
+  margin: 0 0 10px !important;
+}
+.site-shell.route-course .section-tabs button {
+  display: grid;
+  grid-template-columns: 23px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 9px;
+  padding: 10px 12px;
+  min-height: 42px;
+  background: transparent;
+  color: var(--secondary-ink);
+  border-radius: 6px;
+}
+.site-shell.route-course .section-tabs button:hover {
+  background: #f2eee5;
+}
+.site-shell.route-course .section-tabs button.selected {
+  background: #eee8dc;
+  color: var(--ink);
+}
+.site-shell.route-course .section-tabs small {
+  margin: 0;
+  font-size: 11px;
+  opacity: 1;
+  color: var(--secondary-ink);
+  font-variant-numeric: tabular-nums;
+}
+.site-shell.route-course .section-tabs span {
+  display: block;
+  white-space: normal;
+  overflow: visible;
+  -webkit-line-clamp: unset;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.site-shell.route-course .lesson-copy {
+  overflow: visible;
+  padding-right: 0;
+}
+.site-shell.route-course .studio-reading h2 {
+  font-size: 24px !important;
+  line-height: 1.5;
+  margin: 0 0 12px !important;
+}
+.site-shell.route-course .studio-reading h3 {
+  font-size: 20px;
+  line-height: 1.5;
+  margin: 24px 0 10px;
+}
+.site-shell.route-course .studio-reading p {
+  font-size: 14px !important;
+  line-height: 1.85 !important;
+  color: #5f5e57;
+  margin-bottom: 14px !important;
+}
+.site-shell.route-course .lesson-copy .lesson-lead {
+  font-weight: 400;
+  padding-bottom: 15px;
+}
+.site-shell.route-course .lesson-copy .note {
+  color: var(--secondary-ink);
+  line-height: 1.8;
+  margin-top: 20px;
+  padding: 14px 16px;
+}
+.site-shell.route-course .studio-reading .reading-nav {
+  margin-top: 24px;
+  padding-top: 12px;
+  color: #4c4b46;
+}
+.site-shell.route-course .reading-nav button {
+  min-height: 36px;
+}
+.site-shell.route-course .comments {
+  margin-top: 26px !important;
+  padding-top: 0 !important;
+}
+.site-shell.route-course .comments textarea {
+  min-height: 100px;
+  margin-top: 14px;
+  padding: 14px 16px;
+  font-size: 14px;
+  caret-color: var(--secondary-action);
+}
+.site-shell.route-course .comments textarea::placeholder {
+  color: var(--secondary-ink);
+}
+.site-shell.route-course .comment-actions {
+  margin-top: 12px;
+  gap: 12px;
+}
+.site-shell.route-course .comment-actions small {
+  font-size: 12px;
+  color: var(--secondary-ink);
+}
+.site-shell.route-course .comment-actions .primary {
+  min-height: 42px;
+  padding: 10px 18px;
+  font-size: 13px;
+}
+.site-shell.route-course .comment {
+  padding: 22px 0;
+  font-size: 14px;
+}
+
+/* Saved and contributed courses use the same compact card anatomy. */
+.site-shell main.page.library > .eyebrow {
+  display: none;
+}
+.site-shell main.page.library > h1 {
+  margin: 0 0 10px;
+}
+.site-shell main.page.library .library-description,
+.site-shell main.page.library .contribution-guest {
+  color: var(--secondary-ink);
+  font-size: 14px;
+  line-height: 1.85;
+  max-width: 65ch;
+}
+.site-shell main.page.library .contribution-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.site-shell main.page.library .course-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 24px;
+  gap: 16px;
+}
+.site-shell main.page.library .course-card {
+  min-height: 220px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: none;
+}
+.site-shell main.page.library .course-card:hover {
+  border-color: #b8ad99;
+  box-shadow: none;
+}
+.site-shell main.page.library .card-main {
+  padding: 20px 20px 12px;
+}
+.site-shell main.page.library .card-main h3 {
+  font-size: 21px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  margin-bottom: 8px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.site-shell main.page.library .card-main p {
+  min-height: 0;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--secondary-ink);
+}
+.site-shell main.page.library .share-materials {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 20px 8px;
+  min-height: 36px;
+  padding: 5px 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--secondary-action);
+  text-align: left;
+}
+.site-shell main.page.library .share-materials span {
+  overflow-wrap: anywhere;
+}
+.site-shell main.page.library .share-materials svg {
+  flex-shrink: 0;
+}
+.site-shell main.page.library .share-materials:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.site-shell main.page.library .card-bottom {
+  padding: 8px 20px;
+  min-height: 50px;
+  gap: 12px;
+  color: var(--secondary-ink);
+  font-size: 12px;
+}
+.site-shell main.page.library .card-bottom .author {
+  gap: 7px;
+}
+.site-shell main.page.library .card-bottom .author strong {
+  font-size: 13px;
+  font-weight: 500;
+}
+.site-shell main.page.library .card-bottom .avatar {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  font-size: 12px;
+}
+.site-shell main.page.library .card-bottom .duration {
+  color: var(--secondary-ink);
+}
+.site-shell main.page.library .card-bottom .duration::before {
+  display: none;
+}
+.site-shell main.page.library .card-bottom .like {
+  min-height: 34px;
+  font-size: 12px;
+}
+.site-shell main.page.library .remove-saved {
+  min-height: 34px;
+  color: var(--secondary-ink);
+  font-size: 12px;
+}
+.site-shell main.page.library .remove-saved:hover {
+  color: var(--secondary-action);
+}
+.site-shell main.page.library .empty {
+  padding: 64px 20px;
+  color: var(--secondary-ink);
+}
+.site-shell main.page.library .empty h3 {
+  font-size: 23px;
+  line-height: 1.5;
+  margin: 12px 0;
+}
+.site-shell main.page.library .empty p {
+  max-width: 40em;
+  margin: 0 auto 22px;
+  font-size: 14px;
+  line-height: 1.85;
+}
+.site-shell main.page.library .empty :is(.primary, .secondary) {
+  min-height: 42px;
+  padding: 10px 18px;
+  font-size: 13px;
+}
+
+/* Points: compact data, ordinary vertical flow, readable mobile columns. */
+.site-shell.route-points .page-title {
+  gap: 16px;
+  margin-bottom: 14px !important;
+}
+.site-shell.route-points .points-stats {
+  gap: 0 !important;
+  margin: 24px 0 30px !important;
+  background: var(--line);
+}
+.site-shell.route-points .points-stats > div {
+  padding: 20px !important;
+  border: 0 !important;
+  border-right: 1px solid var(--line) !important;
+}
+.site-shell.route-points .points-stats > div:last-child {
+  border-right: 0 !important;
+}
+.site-shell.route-points .points-stats span {
+  color: var(--secondary-ink) !important;
+  line-height: 1.6;
+}
+.site-shell.route-points .points-stats strong {
+  font-size: 30px !important;
+  font-weight: 400 !important;
+  font-variant-numeric: tabular-nums;
+}
+.site-shell.route-points .page-title select {
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--secondary-ink);
+  font-size: 13px;
+  background: #fff;
+}
+.site-shell.route-points main.page.points > .muted {
+  margin: 8px 0 14px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.site-shell.route-points .ledger > div {
+  padding: 20px 0;
+  font-size: 14px;
+  line-height: 1.7;
+  font-variant-numeric: tabular-nums;
+}
+.site-shell.route-points .ledger > div > span:last-child {
+  text-align: right;
+}
+
+/* Asset modal: file identity and acquisition precede optional preview. */
+.dialog.asset-dialog {
+  width: min(940px, 100%);
+  padding: 30px;
+  border: 0;
+  border-radius: 16px;
+  color: var(--ink);
+  --secondary-ink: #65635c;
+  --secondary-action: #945137;
+}
+.asset-dialog > .eyebrow {
+  display: none;
+}
+.asset-dialog > h2 {
+  padding-right: 36px;
+  font-size: 27px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.asset-dialog > .muted {
+  max-width: 65ch;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--secondary-ink);
+}
+.asset-dialog .close {
+  top: 22px;
+  right: 22px;
+  padding: 8px;
+  color: var(--secondary-ink);
+}
+.asset-dialog .asset-workspace {
+  grid-template-columns: 180px minmax(0, 1fr);
+  margin-top: 22px;
+  background: #fff;
+}
+.asset-dialog .asset-workspace nav {
+  padding: 12px;
+  background: #f2efe7;
+}
+.asset-dialog .asset-workspace nav button {
+  min-height: 44px;
+  gap: 12px;
+  padding: 12px 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--secondary-ink);
+}
+.asset-dialog .asset-workspace nav button.selected {
+  color: var(--ink);
+}
+.asset-dialog .asset-workspace article {
+  padding: 24px;
+}
+.asset-dialog .asset-file-head {
+  display: block;
+}
+.asset-dialog .asset-file-head h3 {
+  font-size: 21px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.asset-dialog .asset-file-head small {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--secondary-ink);
+  font-variant-numeric: tabular-nums;
+}
+.asset-dialog .asset-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 22px 0;
+}
+.asset-dialog .asset-actions button {
+  min-height: 42px;
+  padding: 10px 16px;
+  font-size: 13px;
+}
+.asset-dialog .asset-preview {
+  border-top: 1px solid var(--line);
+}
+.asset-dialog .asset-preview > summary {
+  min-height: 44px;
+  padding: 13px 0;
+  cursor: pointer;
+  color: var(--secondary-ink);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.asset-dialog .asset-preview pre {
+  margin: 4px 0 0;
+  padding: 16px;
+  border-radius: 8px;
+  background: #f7f5ef;
+  max-height: 340px;
+  overflow: auto;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.85;
+  color: #56544d;
+  scrollbar-color: #c4beb1 #f7f5ef;
+  scrollbar-width: thin;
+}
+.asset-dialog .empty {
+  padding: 40px 12px 20px;
+  color: var(--secondary-ink);
+}
+.asset-dialog .empty h3 {
+  font-size: 22px;
+  line-height: 1.5;
+}
+.asset-dialog .empty p {
+  font-size: 14px;
+  line-height: 1.8;
+}
+.asset-dialog .empty .primary {
+  font-size: 13px;
+  min-height: 42px;
+  padding: 10px 18px;
+}
+
+@media (min-width: 1280px) {
+  .site-shell.route-course .chapter-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+@media (max-width: 1100px) {
+  .site-shell main.page.library .course-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 980px) {
+  .site-shell.route-course .course-studio {
+    grid-template-columns: 1fr !important;
+  }
+  .site-shell.route-course .video-column {
+    width: 100%;
+  }
+  .site-shell.route-course .chapter-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .site-shell.route-course .studio-reading {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+}
+@media (max-width: 760px) {
+  /* The mobile header has two rows; release the desktop inline height. */
+  .site-shell.route-course > .header {
+    height: auto !important;
+    min-height: 112px !important;
+  }
+  .site-shell:not(.route-school) main.page {
+    padding: 20px 20px 36px;
+  }
+  .site-shell.route-course main.detail.page {
+    padding: 16px 20px 32px !important;
+  }
+  .site-shell.route-course .detail-heading {
+    margin-bottom: 18px !important;
+  }
+  .site-shell.route-course .detail-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+  .site-shell.route-course .detail-actions :is(.primary, .secondary) {
+    width: 100%;
+    justify-content: center;
+  }
+  .site-shell.route-course .detail-actions .primary {
+    grid-column: 1 / -1;
+  }
+  .site-shell.route-course .video-column .video {
+    padding: 24px 20px 64px;
+  }
+  .site-shell.route-course .video-column .video h2 {
+    font-size: 22px !important;
+    margin: 10px auto 14px;
+  }
+  .site-shell.route-course .video-bottom {
+    padding: 10px 12px !important;
+    gap: 4px 10px;
+    font-size: 10px !important;
+  }
+  .site-shell.route-course .studio-reading {
+    padding: 20px !important;
+  }
+  .site-shell.route-course .studio-reading h2 {
+    font-size: 23px !important;
+  }
+  .site-shell.route-points .points-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    margin-top: 20px !important;
+  }
+  .site-shell.route-points .points-stats > div {
+    padding: 18px 20px !important;
+    border-bottom: 1px solid var(--line) !important;
+  }
+  .site-shell.route-points .points-stats > div:first-child {
+    grid-column: 1 / -1;
+    border-right: 0 !important;
+  }
+  .site-shell.route-points .points-stats > div:nth-child(odd) {
+    border-right: 0 !important;
+  }
+  .site-shell.route-points .points-stats > div:nth-last-child(-n+2) {
+    border-bottom: 0 !important;
+  }
+  .site-shell.route-points .ledger > div {
+    grid-template-columns: 84px 66px minmax(0, 1fr) 34px;
+    gap: 10px;
+    font-size: 12px;
+    padding: 16px 0;
+  }
+  .asset-dialog .asset-workspace {
+    grid-template-columns: 1fr;
+  }
+  .asset-dialog .asset-workspace nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 8px;
+    border-bottom: 1px solid var(--line);
+    overflow: visible;
+  }
+  .asset-dialog .asset-workspace nav button {
+    width: auto;
+    min-height: 40px;
+    padding: 8px 12px;
+  }
+}
+@media (max-width: 560px) {
+  .site-shell main.page.library .course-grid {
+    grid-template-columns: 1fr;
+    margin-top: 20px;
+  }
+  .site-shell.route-course .chapter-strip {
+    grid-template-columns: 1fr !important;
+    padding: 8px;
+  }
+  .site-shell.route-course .topline-merged .tm-meta {
+    font-size: 12px;
+  }
+  .site-shell.route-course .reading-head {
+    align-items: flex-start;
+  }
+  .site-shell.route-course .comment-actions {
+    flex-wrap: wrap;
+  }
+  .site-shell.route-course .comment-actions small {
+    flex-basis: 100%;
+  }
+  .site-shell.route-course .comment-actions .primary {
+    margin-left: auto;
+  }
+  .site-shell main.page.library .empty {
+    padding: 40px 8px;
+  }
+  .site-shell.route-points .ledger > div {
+    grid-template-columns: 76px 58px minmax(0, 1fr) 30px;
+    gap: 7px;
+  }
+  .dialog.asset-dialog {
+    padding: 22px 18px;
+    border-radius: 14px;
+  }
+  .asset-dialog > h2 {
+    font-size: 24px;
+    padding-right: 32px;
+  }
+  .asset-dialog .close {
+    top: 16px;
+    right: 12px;
+  }
+  .asset-dialog .asset-workspace article {
+    padding: 20px 16px;
+  }
+  .asset-dialog .asset-actions {
+    gap: 8px;
+    margin: 20px 0;
+  }
+  .asset-dialog .asset-actions button {
+    justify-content: center;
+    padding: 10px 12px;
+  }
+  .asset-dialog .asset-preview pre {
+    padding: 12px;
+    max-height: 280px;
+  }
+}

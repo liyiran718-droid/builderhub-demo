@@ -6,81 +6,10 @@
     <meta name="google" content="notranslate" />
     <meta name="theme-color" content="#f6f3eb" />
     <title>AI Builder Hub · UI Demo</title>
-    <script type="module" crossorigin src="./index-intro-steady-20260918.js"></script>
+    <script type="module" crossorigin src="./index-intro-steady-20260918.js?v=8765-corrected"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BCUsu1er.css?v=2">
     <style>
       /* ===== 用户修改样式 v4 ===== */
-
-      /* Original 8099 choreography; fixed glyph slots and one lifecycle. */
-      html { scrollbar-gutter: stable; }
-      html.intro-playing { overflow: hidden; }
-      .intro {
-        overflow: visible !important;
-        animation: intro-stay 3.2s cubic-bezier(.45,0,.15,1) both !important;
-      }
-      @keyframes intro-stay {
-        0%,85% { opacity:1; }
-        100% { opacity:0; }
-      }
-      .intro .intro-stage,
-      .intro .intro-lockup {
-        animation:none !important;
-        opacity:1 !important;
-        transform:none !important;
-        overflow:visible !important;
-      }
-      .intro .intro-lockup h1 { overflow:visible !important; will-change:auto !important; }
-      .intro .intro-letter,
-      .intro .intro-space {
-        max-width:none !important;
-        overflow:visible !important;
-        filter:none !important;
-        transform:none !important;
-        will-change:opacity;
-        animation:letter-handwrite .3s cubic-bezier(.25,.1,.25,1) var(--enter-delay) both,
-                  letter-exit-smooth .35s cubic-bezier(.7,0,1,.5) var(--exit-delay) forwards !important;
-      }
-      @keyframes letter-handwrite {
-        from { opacity:0; clip-path:inset(-.25em calc(100% + .22em) -.25em -.22em); }
-        to { opacity:1; clip-path:inset(-.25em -.22em -.25em -.22em); }
-      }
-      @keyframes letter-exit-smooth {
-        from { opacity:1; }
-        to { opacity:0; }
-      }
-      .intro .intro-mark {
-        transform:none !important;
-        will-change:opacity !important;
-        animation:mark-steady-exit 2.8s cubic-bezier(.45,0,.15,1) both !important;
-      }
-      @keyframes mark-steady-exit {
-        0%,50% { opacity:1; }
-        65%,100% { opacity:0; }
-      }
-      .intro .intro-space {
-        clip-path:none;
-        animation:space-handwrite .2s ease var(--enter-delay) both,
-                  space-exit-smooth .18s linear var(--exit-delay) forwards !important;
-      }
-      @keyframes space-handwrite { from { opacity:0; } to { opacity:1; } }
-      @keyframes space-exit-smooth { from { opacity:1; } to { opacity:0; } }
-      .intro .intro-tagline {
-        animation:tagline-fadein .5s ease .9s forwards,
-                  tagline-fadeout .4s ease 2.4s forwards !important;
-        transform:translateY(0) !important;
-      }
-      @keyframes tagline-fadein { from { opacity:0; } to { opacity:1; } }
-      @keyframes tagline-fadeout { from { opacity:1; } to { opacity:0; } }
-      .site-entering { animation:none !important; }
-      @media(prefers-reduced-motion:reduce) {
-        .intro { animation-duration:.18s !important; }
-        .intro :is(.intro-letter,.intro-space,.intro-mark,.intro-tagline) {
-          animation:none !important;
-          clip-path:none !important;
-          opacity:1 !important;
-          transform:none !important;
-        }
-      }
 
       /* ===== 修改7: 导航栏字体改细，更精致 ===== */
       .site-shell .header nav > button {
@@ -521,7 +450,10 @@
     </style>
   
 
-</head>
+    <link rel="stylesheet" href="./school-refinement.css?v=2">
+      <link rel="stylesheet" href="./secondary-refinement.css?v=1">
+    <link rel="stylesheet" href="./intro-refinement.css?v=2">
+  </head>
   <body>
     <div id="root"></div>
     <script>
@@ -559,76 +491,7 @@
       }
 
       /* ===== 课程详情页修改 ===== */
-      function applyCourseMods() {
-        const topLine = document.querySelector('.detail-topline');
-        const author = document.querySelector('.detail-author');
-        const eyebrow = topLine?.querySelector('.eyebrow');
-
-        if (!topLine || !author || !eyebrow) {
-          setTimeout(applyCourseMods, 150);
-          return;
-        }
-
-        // 避免重复应用
-        if (document.querySelector('.topline-merged')) return;
-
-        // 1. 文案修改
-        eyebrow.textContent = eyebrow.textContent.replace('AI Builder School', 'From');
-
-        // 1b. "返回 School" 改为 "更多"
-        const courseBackBtn = topLine.querySelector('.back');
-        if (courseBackBtn) {
-          const textNodes = Array.from(courseBackBtn.childNodes).filter(
-            n => n.nodeType === 3
-          );
-          if (textNodes.length > 0) {
-            textNodes[0].textContent = '更多';
-            for (let i = 1; i < textNodes.length; i++) textNodes[i].remove();
-          }
-        }
-
-        // 1c. 删除标题区内冗余的 detail-author（作者信息已在 topline 展示）
-        const headingAuthor = document.querySelector('.detail-heading .detail-author');
-        if (headingAuthor) headingAuthor.remove();
-
-        // 2. 合并作者信息（去掉45分钟时长，只保留日期）
-        const avatarEl = author.querySelector('.avatar');
-        const authorBtn = author.querySelector('button');
-        const authorName = authorBtn?.textContent?.trim() || '';
-
-        // 获取日期/时长文本，去掉时长部分
-        const spans = author.querySelectorAll('span');
-        let dateText = spans.length >= 2 ? spans[1].textContent.trim() : (spans[0]?.textContent?.trim() || '');
-        // 去掉 "· 45分钟" 这类时长信息
-        dateText = dateText.replace(/\s*·\s*\d+分钟\s*/g, '').trim();
-        dateText = dateText.replace(/\d+分钟/g, '').trim();
-        // 如果只剩分隔符，清空
-        if (/^[·\s]+$/.test(dateText)) dateText = '';
-
-        const merged = document.createElement('span');
-        merged.className = 'topline-merged';
-        merged.dataset.applied = 'true';
-        merged.innerHTML =
-          (avatarEl ? `<span class="tm-avatar">${avatarEl.textContent.trim()}</span>` : '') +
-          `<button class="tm-author-btn">${authorName}</button>` +
-          (dateText ? `<span class="tm-meta">${dateText}</span>` : '');
-
-        eyebrow.parentNode.insertBefore(merged, eyebrow.nextSibling);
-
-        // 3. 删除页码 "1 / 5"
-        const readingHead = document.querySelector('.reading-head');
-        if (readingHead) {
-          const headDiv = readingHead.querySelector(':scope > div');
-          if (headDiv) {
-            const spans = headDiv.querySelectorAll('span');
-            spans.forEach(s => {
-              if (/^\d+\s*\/\s*\d+$/.test(s.textContent.trim())) {
-                s.remove();
-              }
-            });
-          }
-        }
-      }
+      function applyCourseMods() { /* UI is owned by React. */ }
 
       /* ===== 我的积分页修改 ===== */
       function applyPointsMods() {
@@ -661,15 +524,7 @@
       }
 
       /* ===== 全局修改：导航"Skill 共享"改为"Get Hub" ===== */
-      function applyNavMods() {
-        const navBtns = document.querySelectorAll('.header nav button, nav button');
-        navBtns.forEach(btn => {
-          if (btn.textContent.indexOf('Skill 共享') >= 0 && !btn.classList.contains('nav-gethub')) {
-            btn.innerHTML = 'Get Hub';
-            btn.classList.add('nav-gethub');
-          }
-        });
-      }
+      function applyNavMods() { /* UI is owned by React. */ }
 
       /* ===== School 页面修改 ===== */
       function applySchoolMods() {
@@ -677,61 +532,10 @@
       }
 
       /* ===== 我的收藏 / 我的点赞 页面修改 ===== */
-      function applyLibraryMods() {
-        const main = document.querySelector('main.page.library');
-        if (!main) {
-          setTimeout(applyLibraryMods, 150);
-          return;
-        }
-        if (main.querySelector('.library-arranged')) return;
-        main.classList.add('library-arranged');
-
-        // "返回 School" 改为 "返回首页"
-        const backBtn = main.querySelector(':scope > .back');
-        if (backBtn) {
-          const textNodes = Array.from(backBtn.childNodes).filter(
-            n => n.nodeType === 3
-          );
-          if (textNodes.length > 0) {
-            textNodes[0].textContent = ' 返回首页';
-            for (let i = 1; i < textNodes.length; i++) {
-              textNodes[i].remove();
-            }
-          } else {
-            backBtn.appendChild(document.createTextNode(' 返回首页'));
-          }
-        }
-      }
+      function applyLibraryMods() { /* UI is owned by React. */ }
 
       /* ===== 用户菜单：普通员工视图 - 去掉往期精彩，新增"我的贡献" ===== */
-      function applyUserMenuMods() {
-        const menu = document.querySelector('.user-menu .menu');
-        if (!menu || menu.querySelector('.menu-modified')) return;
-
-        const items = menu.querySelectorAll(':scope > button, :scope > a');
-        let pastBtn = null, adminLink = null;
-
-        items.forEach(el => {
-          const txt = el.textContent.trim();
-          if (txt.indexOf('往期精彩') >= 0) pastBtn = el;
-          if (txt.indexOf('管理后台') >= 0) adminLink = el;
-        });
-
-        // 删除"往期精彩"
-        if (pastBtn) pastBtn.remove();
-
-        // 在"我的点赞"后面添加"我的贡献"（用于 skill 共享模块）
-        const likeBtn = Array.from(items).find(el => el.textContent.trim().indexOf('我的点赞') >= 0);
-        if (likeBtn && !menu.querySelector('.my-contribution')) {
-          const contrib = document.createElement('button');
-          contrib.className = 'my-contribution';
-          // 与原菜单项一致：文字在前，箭头 svg 在后
-          contrib.innerHTML = '我的贡献' + likeBtn.querySelector('svg').outerHTML;
-          likeBtn.parentNode.insertBefore(contrib, likeBtn.nextSibling);
-        }
-
-        menu.classList.add('menu-modified');
-      }
+      function applyUserMenuMods() { /* UI is owned by React. */ }
 
       /* ===== 路由变化监听 ===== */
       function setupRouteWatcher() {

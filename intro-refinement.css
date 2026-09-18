@@ -1,0 +1,73 @@
+      /* Original 8099 choreography; fixed glyph slots and one lifecycle. */
+      html { scrollbar-gutter: stable; }
+      html.intro-playing { overflow: hidden; }
+      .intro {
+        overflow: visible !important;
+        animation: intro-stay 3.2s cubic-bezier(.45,0,.15,1) both !important;
+      }
+      @keyframes intro-stay {
+        0%,85% { opacity:1; }
+        100% { opacity:0; }
+      }
+      .intro .intro-stage,
+      .intro .intro-lockup {
+        animation:none !important;
+        opacity:1 !important;
+        transform:none !important;
+        overflow:visible !important;
+      }
+      .intro .intro-lockup h1 { overflow:visible !important; will-change:auto !important; }
+      .intro .intro-letter,
+      .intro .intro-space {
+        max-width:none !important;
+        overflow:visible !important;
+        filter:none !important;
+        transform:none !important;
+        will-change:opacity;
+        animation:letter-handwrite .3s cubic-bezier(.25,.1,.25,1) var(--enter-delay) both,
+                  letter-exit-smooth .35s cubic-bezier(.7,0,1,.5) var(--exit-delay) forwards !important;
+      }
+      @keyframes letter-handwrite {
+        from { opacity:0; clip-path:inset(-.25em calc(100% + .22em) -.25em -.22em); }
+        to { opacity:1; clip-path:inset(-.25em -.22em -.25em -.22em); }
+      }
+      @keyframes letter-exit-smooth {
+        from { opacity:1; }
+        to { opacity:0; }
+      }
+      .intro .intro-mark {
+        transform:none !important;
+        will-change:opacity !important;
+        animation:mark-steady-exit 2.8s cubic-bezier(.45,0,.15,1) both !important;
+      }
+      @keyframes mark-steady-exit {
+        0%,50% { opacity:1; }
+        65%,100% { opacity:0; }
+      }
+      .intro .intro-space {
+        clip-path:none;
+        animation:space-handwrite .2s ease var(--enter-delay) both,
+                  space-exit-smooth .18s linear var(--exit-delay) forwards !important;
+      }
+      @keyframes space-handwrite { from { opacity:0; } to { opacity:1; } }
+      @keyframes space-exit-smooth { from { opacity:1; } to { opacity:0; } }
+      .intro .intro-tagline {
+        animation:tagline-fadein .5s ease .9s forwards,
+                  tagline-fadeout .4s ease 2.4s forwards !important;
+        transform:translateY(0) !important;
+      }
+      @keyframes tagline-fadein { from { opacity:0; } to { opacity:1; } }
+      @keyframes tagline-fadeout { from { opacity:1; } to { opacity:0; } }
+      .site-entering { animation:none !important; }
+      @media(prefers-reduced-motion:reduce) {
+        .intro { animation-duration:.18s !important; }
+        .intro :is(.intro-letter,.intro-space,.intro-mark,.intro-tagline) {
+          animation:none !important;
+          clip-path:none !important;
+          opacity:1 !important;
+          transform:none !important;
+        }
+      }
+
+
+.bh-site-covered { pointer-events:none; }
