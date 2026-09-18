@@ -6,17 +6,23 @@
     <meta name="google" content="notranslate" />
     <meta name="theme-color" content="#f6f3eb" />
     <title>AI Builder Hub · UI Demo</title>
-    <script type="module" crossorigin src="./assets/index-ZJYBuRdN.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BCUsu1er.css">
+    <script type="module" crossorigin src="./assets/index-ZJYBuRdN.js?v=2"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BCUsu1er.css?v=2">
     <style>
-      /* ===== 用户修改样式 v3 ===== */
+      /* ===== 用户修改样式 v4 ===== */
 
       /* ===== 开屏动画期间隐藏滚动条，避免卡顿 ===== */
       html.intro-playing, body.intro-playing {
         overflow: hidden !important;
       }
       .intro {
-        overflow: hidden !important;
+        overflow: visible !important;
+        /* 覆盖原始 intro-fadeout，延长到 3.2s 让 tagline 完整显示 */
+        animation: intro-stay 3.2s cubic-bezier(.45,0,.15,1) forwards !important;
+      }
+      @keyframes intro-stay {
+        0%, 85% { opacity: 1; visibility: visible; }
+        100% { opacity: 0; visibility: hidden; }
       }
 
       /* ===== 开屏动画：字母按书写笔顺入场，倒序退出 ===== */
@@ -25,6 +31,11 @@
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
+      }
+      /* 关键：父容器 overflow 不能 hidden，否则斜体笔画被裁切 */
+      .intro .intro-lockup h1,
+      .intro .intro-lockup {
+        overflow: visible !important;
       }
       /* 提示浏览器提前做 GPU 合成，避免卡顿 */
       .intro .intro-letter,
@@ -54,14 +65,19 @@
         0% { opacity: 0; }
         100% { opacity: 1; }
       }
-      /* 覆盖原始 tagline 动画：停留更久 */
+      /* tagline：完全覆盖原始动画，等字母入场后再淡入，字母退场后再淡出 */
       .intro .intro-tagline {
-        animation: tagline-hold 0.3s ease 1.8s forwards !important;
-        opacity: 0 !important;
+        animation: tagline-fadein 0.5s ease 0.9s forwards,
+                   tagline-fadeout 0.4s ease 2.4s forwards !important;
+        transform: translateY(0) !important;
       }
-      @keyframes tagline-hold {
-        0% { opacity: 0; transform: translateY(0); }
+      @keyframes tagline-fadein {
+        0% { opacity: 0; transform: translateY(4px); }
         100% { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes tagline-fadeout {
+        0% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; transform: translateY(-3px); }
       }
 
       /* ===== 修改7: 导航栏字体改细，更精致 ===== */
@@ -501,7 +517,9 @@
         height: 14px !important;
       }
     </style>
-  </head>
+  
+
+</head>
   <body>
     <div id="root"></div>
     <script>
@@ -698,12 +716,15 @@
           var entranceDelay = (0.66 - delay);
           var exitDelay = delay + 1.2;
 
-          // opacity 不用 !important，让动画能覆盖它
+          // 设置初始隐藏状态（入场动画会覆盖这些值）
           el.style.opacity = '0';
           el.style.setProperty('animation', 'none', 'important');
           if (el.classList.contains('intro-letter')) {
             el.style.clipPath = 'inset(0 100% 0 0)';
           }
+
+          // 入场完成后（entranceDelay + 0.3s），清除 clip-path 让斜体笔画完整显示
+          var entranceEnd = entranceDelay + 0.3 + 0.05;
 
           requestAnimationFrame(function() {
             if (el.classList.contains('intro-letter')) {
@@ -719,6 +740,15 @@
                 'important'
               );
             }
+
+            // 入场动画结束后，清除 clip-path inline style
+            // 这样即使 CSS animation 不在播放，clip-path 也不会裁掉斜体笔画
+            setTimeout(function() {
+              if (el.classList.contains('intro-letter')) {
+                el.style.clipPath = 'none';
+                el.style.opacity = '1';
+              }
+            }, entranceEnd * 1000);
           });
         });
       }
