@@ -6,78 +6,80 @@
     <meta name="google" content="notranslate" />
     <meta name="theme-color" content="#f6f3eb" />
     <title>AI Builder Hub · UI Demo</title>
-    <script type="module" crossorigin src="./assets/index-ZJYBuRdN.js?v=2"></script>
+    <script type="module" crossorigin src="./index-intro-steady-20260918.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BCUsu1er.css?v=2">
     <style>
       /* ===== 用户修改样式 v4 ===== */
 
-      /* ===== 开屏动画期间隐藏滚动条，避免卡顿 ===== */
-      html.intro-playing, body.intro-playing {
-        overflow: hidden !important;
-      }
+      /* Original 8099 choreography; fixed glyph slots and one lifecycle. */
+      html { scrollbar-gutter: stable; }
+      html.intro-playing { overflow: hidden; }
       .intro {
         overflow: visible !important;
-        /* 覆盖原始 intro-fadeout，延长到 3.2s 让 tagline 完整显示 */
-        animation: intro-stay 3.2s cubic-bezier(.45,0,.15,1) forwards !important;
+        animation: intro-stay 3.2s cubic-bezier(.45,0,.15,1) both !important;
       }
       @keyframes intro-stay {
-        0%, 85% { opacity: 1; visibility: visible; }
-        100% { opacity: 0; visibility: hidden; }
+        0%,85% { opacity:1; }
+        100% { opacity:0; }
       }
-
-      /* ===== 开屏动画：字母按书写笔顺入场，倒序退出 ===== */
-      /* 取消整体缩放入场，改为逐字书写 */
+      .intro .intro-stage,
       .intro .intro-lockup {
-        animation: none !important;
-        opacity: 1 !important;
-        transform: none !important;
+        animation:none !important;
+        opacity:1 !important;
+        transform:none !important;
+        overflow:visible !important;
       }
-      /* 关键：父容器 overflow 不能 hidden，否则斜体笔画被裁切 */
-      .intro .intro-lockup h1,
-      .intro .intro-lockup {
-        overflow: visible !important;
-      }
-      /* 提示浏览器提前做 GPU 合成，避免卡顿 */
+      .intro .intro-lockup h1 { overflow:visible !important; will-change:auto !important; }
       .intro .intro-letter,
-      .intro .intro-space,
-      .intro .intro-mark,
-      .intro .intro-tagline {
-        will-change: clip-path, opacity, transform;
+      .intro .intro-space {
+        max-width:none !important;
+        overflow:visible !important;
+        filter:none !important;
+        transform:none !important;
+        will-change:opacity;
+        animation:letter-handwrite .3s cubic-bezier(.25,.1,.25,1) var(--enter-delay) both,
+                  letter-exit-smooth .35s cubic-bezier(.7,0,1,.5) var(--exit-delay) forwards !important;
       }
       @keyframes letter-handwrite {
-        0% {
-          opacity: 0;
-          clip-path: inset(0 100% 0 0);
-          transform: translateX(-4px);
-        }
-        70% {
-          opacity: 1;
-          clip-path: inset(0 0 0 0);
-          transform: translateX(-1px);
-        }
-        100% {
-          opacity: 1;
-          clip-path: none;
-          transform: translateX(0);
-        }
+        from { opacity:0; clip-path:inset(-.25em calc(100% + .22em) -.25em -.22em); }
+        to { opacity:1; clip-path:inset(-.25em -.22em -.25em -.22em); }
       }
-      @keyframes space-handwrite {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
+      @keyframes letter-exit-smooth {
+        from { opacity:1; }
+        to { opacity:0; }
       }
-      /* tagline：完全覆盖原始动画，等字母入场后再淡入，字母退场后再淡出 */
+      .intro .intro-mark {
+        transform:none !important;
+        will-change:opacity !important;
+        animation:mark-steady-exit 2.8s cubic-bezier(.45,0,.15,1) both !important;
+      }
+      @keyframes mark-steady-exit {
+        0%,50% { opacity:1; }
+        65%,100% { opacity:0; }
+      }
+      .intro .intro-space {
+        clip-path:none;
+        animation:space-handwrite .2s ease var(--enter-delay) both,
+                  space-exit-smooth .18s linear var(--exit-delay) forwards !important;
+      }
+      @keyframes space-handwrite { from { opacity:0; } to { opacity:1; } }
+      @keyframes space-exit-smooth { from { opacity:1; } to { opacity:0; } }
       .intro .intro-tagline {
-        animation: tagline-fadein 0.5s ease 0.9s forwards,
-                   tagline-fadeout 0.4s ease 2.4s forwards !important;
-        transform: translateY(0) !important;
+        animation:tagline-fadein .5s ease .9s forwards,
+                  tagline-fadeout .4s ease 2.4s forwards !important;
+        transform:translateY(0) !important;
       }
-      @keyframes tagline-fadein {
-        0% { opacity: 0; transform: translateY(4px); }
-        100% { opacity: 1; transform: translateY(0); }
-      }
-      @keyframes tagline-fadeout {
-        0% { opacity: 1; transform: translateY(0); }
-        100% { opacity: 0; transform: translateY(-3px); }
+      @keyframes tagline-fadein { from { opacity:0; } to { opacity:1; } }
+      @keyframes tagline-fadeout { from { opacity:1; } to { opacity:0; } }
+      .site-entering { animation:none !important; }
+      @media(prefers-reduced-motion:reduce) {
+        .intro { animation-duration:.18s !important; }
+        .intro :is(.intro-letter,.intro-space,.intro-mark,.intro-tagline) {
+          animation:none !important;
+          clip-path:none !important;
+          opacity:1 !important;
+          transform:none !important;
+        }
       }
 
       /* ===== 修改7: 导航栏字体改细，更精致 ===== */
@@ -701,89 +703,6 @@
         }
       }
 
-      /* ===== 开屏动画JS控制：逐字书写入场 + 倒序退出 ===== */
-      function applyIntroLetterMods() {
-        var intro = document.querySelector('.intro');
-        if (!intro || intro.dataset.letterMod) return;
-        intro.dataset.letterMod = '1';
-
-        var letters = intro.querySelectorAll('.intro-letter, .intro-space');
-        if (!letters.length) return;
-
-        letters.forEach(function(el) {
-          var rawDelay = el.style.getPropertyValue('--letter-delay');
-          var delay = parseFloat(rawDelay) || 0;
-          var entranceDelay = (0.66 - delay);
-          var exitDelay = delay + 1.2;
-
-          // 设置初始隐藏状态（入场动画会覆盖这些值）
-          el.style.opacity = '0';
-          el.style.setProperty('animation', 'none', 'important');
-          if (el.classList.contains('intro-letter')) {
-            el.style.clipPath = 'inset(0 100% 0 0)';
-          }
-
-          // 入场完成后（entranceDelay + 0.3s），清除 clip-path 让斜体笔画完整显示
-          var entranceEnd = entranceDelay + 0.3 + 0.05;
-
-          requestAnimationFrame(function() {
-            if (el.classList.contains('intro-letter')) {
-              el.style.setProperty('animation',
-                'letter-handwrite 0.3s cubic-bezier(0.4,0,0.2,1) ' + entranceDelay + 's both, ' +
-                'letter-rewind 0.35s cubic-bezier(0.7,0,1,0.5) ' + exitDelay + 's forwards',
-                'important'
-              );
-            } else {
-              el.style.setProperty('animation',
-                'space-handwrite 0.2s ease ' + entranceDelay + 's both, ' +
-                'space-rewind 0.18s linear ' + exitDelay + 's forwards',
-                'important'
-              );
-            }
-
-            // 入场动画结束后，清除 clip-path inline style
-            // 这样即使 CSS animation 不在播放，clip-path 也不会裁掉斜体笔画
-            setTimeout(function() {
-              if (el.classList.contains('intro-letter')) {
-                el.style.clipPath = 'none';
-                el.style.opacity = '1';
-              }
-            }, entranceEnd * 1000);
-          });
-        });
-      }
-
-      /* ===== 开屏动画：隐藏滚动条，动画结束后恢复 ===== */
-      function handleIntroScrollbar() {
-        document.documentElement.classList.add('intro-playing');
-        document.body.classList.add('intro-playing');
-        applyIntroLetterMods();
-        var letterModTimer = setInterval(function() {
-          var intro = document.querySelector('.intro');
-          if (intro && !intro.dataset.letterMod) {
-            applyIntroLetterMods();
-          }
-          if (!intro) {
-            clearInterval(letterModTimer);
-          }
-        }, 50);
-        // 监听 intro 元素消失后恢复滚动
-        const checkIntro = setInterval(() => {
-          const intro = document.querySelector('.intro');
-          if (!intro || getComputedStyle(intro).visibility === 'hidden' || getComputedStyle(intro).opacity === '0') {
-            document.documentElement.classList.remove('intro-playing');
-            document.body.classList.remove('intro-playing');
-            clearInterval(checkIntro);
-          }
-        }, 200);
-        // 兜底：3.5秒后强制恢复
-        setTimeout(() => {
-          document.documentElement.classList.remove('intro-playing');
-          document.body.classList.remove('intro-playing');
-          clearInterval(checkIntro);
-        }, 3500);
-      }
-
       /* ===== 用户菜单：普通员工视图 - 去掉往期精彩，新增"我的贡献" ===== */
       function applyUserMenuMods() {
         const menu = document.querySelector('.user-menu .menu');
@@ -832,12 +751,10 @@
       // 启动
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
-          handleIntroScrollbar();
           runModifications();
           setupRouteWatcher();
         });
       } else {
-        handleIntroScrollbar();
         runModifications();
         setupRouteWatcher();
       }
